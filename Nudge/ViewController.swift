@@ -10,27 +10,38 @@ import UIKit
 
 class ViewController: UIViewController
 {
+    // Properties
+    var goal = 0
+    
+    // Outlets
+    @IBOutlet weak var number: UILabel!
+    @IBOutlet weak var stepper: UIStepper!
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.title = "Frequency"
     }
-
-    // Create outlets to
-    //      1) change the counter to show the user and...
-    //      2) access the stepper's .value attribute
-    @IBOutlet weak var number: UILabel!
-    @IBOutlet weak var stepper: UIStepper!
     
     // Mirror the stepper's value in the label
     //      to show the user
     @IBAction func valueChanged(_ sender: Any)
     {
-        // Convert the Double value to Int first to truncate the decimal
-        //      then to String and assign to the label to show the user
-        number.text = String(Int(stepper!.value))
+        // Update goal with the new number.
+        goal = Int(stepper!.value)
+        
+        // Update the label to show the user the current goal.
+        number.text = "\(goal)"
     }
     
+    // Pass goal picked by user to SecondViewController when the user goes to the next screen
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let nextView: SecondViewController = segue.destination as? SecondViewController
+        {
+            nextView.goal = goal
+        }
+    }
 }
 
