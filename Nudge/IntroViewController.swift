@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class IntroViewController: UIViewController {
     // Properties
@@ -28,7 +29,24 @@ class IntroViewController: UIViewController {
     @IBAction func enableNotificationPermissions(_ sender: Any)
     {
         // Ask for permission
-        // Set didGivePermissions to true
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: .alert)
+            {
+                (granted, error) in
+                if granted
+                {
+                    // Note that the user gave permission
+                    self.didGivePermissions = true
+                    
+                    // Enable the "Let's get started!" button
+                    self.startButton.isEnabled = true
+                }
+            }
+        if didGivePermissions
+        {
+            // Disable the "Enable Permissions" button
+            self.permissionsButton.isEnabled = false
+        }
     }
 
 }
