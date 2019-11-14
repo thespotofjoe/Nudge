@@ -155,7 +155,7 @@ class SecondViewController: UIViewController
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the goal the user picked from the previous View Controller.
-        goal = (sender as! ViewController).goal
+        //goal = (sender as! ViewController).goal
     }
 
 }
