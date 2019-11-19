@@ -27,6 +27,9 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
     // An array with the notification objects to hold every single Nudge
     var nudges: [UNNotificationRequest] = []
     
+    let calendar = Calendar.current
+    let timezone = TimeZone.current
+    
     // A function that checks the sum of all the weeks so we can correct for rounding differences
     func checkSum() -> Int
     {
@@ -41,44 +44,29 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
     }
     
     // A function that generates and returns the total amount of nudges each week towards the end goal
-    func generateSteps(to total: Int, in months: Int)
+    func generateSteps(in months: Int)
     {
-        // The slope is the rate of growth of activities between one month and the last,
-        //      calculated such that the total number of steps over the course of all weeks
-        //      is equal to the total specified by the user
-        let weeks = months * 4
-        let slope: Double = 2.0*(Double(total)/Double(weeks)/Double(weeks))
-
-        for week in 1...weeks
+        // Calculate total number of weeks
+        let numWeeks = months * 4
+        
+        // Calculate the number of weeks to stay at each step
+        let weeksAtStep = numWeeks / goal
+        
+        
+        // Create the array
+        for numSteps in 1...goal
         {
-            steps.append(Int(Double(week)*slope))
+            for _ in 1...weeksAtStep
+            {
+                steps.append(numSteps)
+            }
         }
         
-        // The algorithm approximates the total desired by the user, but rounding errors prevent it
-        //      from being 100% accurate. So this code corrects the difference by adding/subtracting
-        //      the missing/extra steps needed to match the user's desired number of activities per month.
-        let sum = checkSum()
-        let difference = sum - total
-        switch difference
+        // Due to int rounding errors, expand the weeks as necessary
+        var errorInRounding = numWeeks - steps.count
+        for _ in 0..<errorInRounding
         {
-        case 0:                 // There is no rounding error, so let's return the step-growth-per-month array.
-            break
-       
-        case Int.min..<0:       // Our algorithm under-calculated. We need to add steps.
-            // Make the correction to our array of Int so the sum total of steps matches the user's desired total,
-            //      adding from the end of the array towards the beginning
-            for i in 0..<abs(difference)
-            {
-                steps[(weeks-i%weeks)-1] += 1
-            }
-        
-        default:                // Our algorithm over-calculated. We need to subtract steps.
-            // Make the correction to our array of Int so the sum total of steps matches the user's desired total,
-            //      subtracting from the beginning of the array towards the end
-            for i in 0..<abs(difference)
-            {
-                steps[i%weeks] -= 1
-            }
+            steps.insert(1, at: 0)
         }
     }
     
@@ -89,48 +77,22 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Nudge", for: indexPath)
         
-        let nudgeTrigger = nudges[indexPath.row].trigger as! UNCalendarNotificationTrigger
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "Nudge", for: indexPath)
+        let cell = UITableViewCell()
         
-        let nudgeDateTime = nudgeTrigger.dateComponents
+        let nudgeTrigger = nudges[indexPath.row*3].trigger as! UNCalendarNotificationTrigger
         
-        // Set the cell's label's month
-        var month = ""
-        switch nudgeDateTime.month
-        {
-        case 1:
-            month = "January"
-        case 2:
-            month = "February"
-        case 3:
-            month = "March"
-        case 4:
-            month = "April"
-        case 5:
-            month = "May"
-        case 6:
-            month = "June"
-        case 7:
-            month = "July"
-        case 8:
-            month = "August"
-        case 9:
-            month = "September"
-        case 10:
-            month = "October"
-        case 11:
-            month = "November"
-        case 12:
-            month = "December"
-            
-        default:
-            break
-        }
+        let nudgeDateTimeComponents = nudgeTrigger.dateComponents
+        let nudgeDateTime = nudgeDateTimeComponents.date!
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        let dateString = dateFormatter.string(from: nudgeDateTime)
         
         // Set the cell's label's weekday
         var weekday = ""
-        switch nudgeDateTime.weekday
+        switch nudgeDateTimeComponents.weekday
         {
         case 1:
             weekday = "Sunday"
@@ -146,13 +108,12 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
             weekday = "Friday"
         case 7:
             weekday = "Saturday"
-            
+
         default:
             break
         }
         
-        cell.textLabel?.text = "\(weekday), \(month) \(nudgeDateTime.day), \(nudgeDateTime.year)"
-        
+        cell.textLabel?.text = "\(weekday), \(dateString)"
         return cell
     }
     
@@ -160,35 +121,33 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
     // we need to Nudge the user
     func populateNudges()
     {
+        // Get date and extract current week and year
         let date = Date()
-        let calendar = Calendar.current
         let thisWeekOfTheYear = calendar.component(.weekOfYear, from: date)
         let thisYear = calendar.component(.year, from: date)
+        
+        // Set next week's year and week
         var nextWeekOfTheYear = thisWeekOfTheYear + 1
-        print ("thisYear: \(thisYear)")
         var nextWeeksYear = thisYear
         
+        // Create an iterator for whichNudge we're creating
         var whichNudge = 0
         
         // Iterate over the weeks
         for n in 1...12
         {
-            print ("n: \(n)... nextWeekOfTheYear: \(nextWeekOfTheYear)")
-            
             // If the next week is actually in the next year,
             // alter the variables appropriately
             if nextWeekOfTheYear > 52
             {
-                print ("nextWeekOfTheYear: \(nextWeekOfTheYear) is over 52. Year: \(nextWeeksYear)")
                 nextWeekOfTheYear = nextWeekOfTheYear % 52
                 nextWeeksYear = nextWeeksYear + 1
-
-                print ("Week has been corrected to: \(nextWeekOfTheYear).\nYear has been corrected to \(nextWeeksYear)")
             }
             
-            // Iterate over each step prescribed for week n
+            // Iterate over each step prescribed for that week
             for step in 0..<steps[n-1]
             {
+                // Create content for a notification request
                 let content = UNMutableNotificationContent()
                 content.title = NSString.localizedUserNotificationString(forKey: "Nudge nudge... Have you done your workout yet?", arguments: nil)
                 content.body = NSString.localizedUserNotificationString(forKey: "Build your athletic self! Mark it as completed now.", arguments: nil)
@@ -198,29 +157,15 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
                     // Initialize variable to hold the date/time of the next Nudge
                     var nextNudgeTime = DateComponents()
                     
+                    // Set calendar and timezone to user's
+                    nextNudgeTime.calendar = self.calendar
+                    nextNudgeTime.timeZone = self.timezone
+                    
                     // Add the appropriate date and time components to the variable
                     nextNudgeTime.year = nextWeeksYear
-                    print ("Set year to \(nextWeeksYear)")  //debug
-                    
                     nextNudgeTime.weekOfYear = nextWeekOfTheYear
-                    print ("Set week to \(nextWeekOfTheYear)")  //debug
-                    
                     nextNudgeTime.weekday = daysOfTheWeek[step]
-                    print ("Set weekday to \(daysOfTheWeek[step])")  //debug
-                    
                     nextNudgeTime.hour = hour
-                    print ("Set hour to \(hour)")  //debug
-                    
-                    nextNudgeTime.calendar = Calendar.current
-         
-                    if nextNudgeTime.isValidDate
-                    {
-                        print ("Date checks out.")
-                    } else {
-                        print ("Date isn't valid.")
-                    }
-                    
-                    print ("Appending nudge at \(nextNudgeTime.date)")  //Debug
                     
                     // Iterate whichNudge
                     whichNudge = whichNudge + 1
@@ -243,7 +188,7 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         // Calculate the steps needed each week
-        generateSteps(to: goal, in: 3)
+        generateSteps(in: 3)
         
         print (steps)
         
@@ -260,7 +205,7 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
                 {
                     // If there's a no permissions error, display an alert to make the user give permissions
                 } else {
-                    print ("Added notification for \((nudge.trigger as! UNCalendarNotificationTrigger).dateComponents.date) successfully")
+                    print ("Added notification for \((nudge.trigger as! UNCalendarNotificationTrigger).dateComponents.date!) successfully")
                 }
             }
         }

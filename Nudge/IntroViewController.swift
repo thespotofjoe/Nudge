@@ -21,24 +21,75 @@ class IntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // See if the user gave permission to notify
-        // if not, stay on this screen
-        // if so, trigger the segue and go to the next screen
+        // Check for notification permissions
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: .alert)
+        {
+            (granted, error) in
+            if granted
+            {
+                // Note that the user gave permission
+                self.didGivePermissions = true
+            }
+        }
+        
+        if didGivePermissions
+        {
+            // Disable the "Enable Permissions" button
+            self.permissionsButton.isEnabled = false
+            
+            // Enable the "Let's get started!" button
+            self.startButton.isEnabled = true
+        }
+//        // See if the user gave permission to notify
+//        // Check for notification permissions
+//        let center = UNUserNotificationCenter.current()
+//
+//        center.getNotificationSettings
+//        { (settings) in
+//            if settings.authorizationStatus != .authorized {
+//                // Notifications haven't been granted.
+//                // Ask the user now.
+//                center.requestAuthorization(options: .alert)
+//                    {
+//                        (granted, error) in
+//                        if granted
+//                        {
+//                            // Note that the user gave permission
+//                            self.didGivePermissions = true
+//                        }
+//                    }
+//            } else {    // Notifications were already granted. Note this
+//                self.didGivePermissions = true
+//            }
+//        }
+//
+//        if didGivePermissions
+//        {
+//            // Disable the "Enable Permissions" button
+//            self.permissionsButton.isEnabled = false
+//
+//            // Enable the "Let's get started!" button
+//            self.startButton.isEnabled = true
+//        }
     }
     
     @IBAction func enableNotificationPermissions(_ sender: Any)
     {
-        // Ask for permission
+        // Check for notification permissions
         let center = UNUserNotificationCenter.current()
+        
         center.requestAuthorization(options: .alert)
+        {
+            (granted, error) in
+            if granted
             {
-                (granted, error) in
-                if granted
-                {
-                    // Note that the user gave permission
-                    self.didGivePermissions = true
-                }
+                // Note that the user gave permission
+                self.didGivePermissions = true
             }
+        }
+        
         if didGivePermissions
         {
             // Disable the "Enable Permissions" button
