@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AC11734F2379E7140058912C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC11734E2379E7140058912C /* SecondViewController.swift */; };
 		AC730D1C237CC84200E8A42F /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC730D1B237CC84200E8A42F /* IntroViewController.swift */; };
+		AC730D1E237DFB8F00E8A42F /* NudgesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC730D1D237DFB8F00E8A42F /* NudgesViewController.swift */; };
 		AC9BEC852373B38A00FC163E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BEC842373B38A00FC163E /* AppDelegate.swift */; };
 		AC9BEC872373B38A00FC163E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BEC862373B38A00FC163E /* SceneDelegate.swift */; };
 		AC9BEC892373B38A00FC163E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9BEC882373B38A00FC163E /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		AC11734E2379E7140058912C /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		AC730D1B237CC84200E8A42F /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		AC730D1D237DFB8F00E8A42F /* NudgesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NudgesViewController.swift; sourceTree = "<group>"; };
 		AC9BEC812373B38A00FC163E /* Nudge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nudge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC9BEC842373B38A00FC163E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC9BEC862373B38A00FC163E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				AC730D1B237CC84200E8A42F /* IntroViewController.swift */,
 				AC9BEC882373B38A00FC163E /* ViewController.swift */,
 				AC9BEC8A2373B38A00FC163E /* Main.storyboard */,
+				AC730D1D237DFB8F00E8A42F /* NudgesViewController.swift */,
 				AC11734E2379E7140058912C /* SecondViewController.swift */,
 				AC9BEC8D2373B38C00FC163E /* Assets.xcassets */,
 				AC9BEC8F2373B38C00FC163E /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC730D1E237DFB8F00E8A42F /* NudgesViewController.swift in Sources */,
 				AC730D1C237CC84200E8A42F /* IntroViewController.swift in Sources */,
 				AC11734F2379E7140058912C /* SecondViewController.swift in Sources */,
 				AC9BEC892373B38A00FC163E /* ViewController.swift in Sources */,

@@ -11,8 +11,17 @@ import UIKit
 class SecondViewController: UIViewController
 {
     // Properties
-    var days = ["M": false, "Tu": false, "W": false, "Th": false, "F": false, "Sa": false, "Su": false]
-    var goal = 0
+    // Dictionary for which days the user picked
+    // I kept it as an Int instead of a String
+    // to make further code easier
+    var weekDays = [1 /* Sunday */: false,
+                2 /* Monday */: false,
+                3 /* Tuesday */: false,
+                4 /* Wednesday */: false,
+                5 /* Thursday */: false,
+                6 /* Friday */: false,
+                7 /* Saturday */: false]
+    var goal: Int = 0
     
     // Outlets
     @IBOutlet weak var pickXDaysLabel: UILabel!
@@ -64,7 +73,7 @@ class SecondViewController: UIViewController
     func countDays() -> Int
     {
         var count = 0
-        for (_, dayIsEnabled) in days
+        for (_, dayIsEnabled) in weekDays
         {
             if dayIsEnabled { count += 1 }
         }
@@ -74,30 +83,30 @@ class SecondViewController: UIViewController
     
     @IBAction func dayWasToggled(_ sender: UIButton)
     {
-        // Convert the button toggled into a String we can use with our days dictionary.
-        var dayPicked = ""
+        // Convert the button toggled into an Int we can use with our days dictionary.
+        var dayPicked: Int
         switch sender
         {
+        case sundayButton:
+            dayPicked = 1
+            
         case mondayButton:
-            dayPicked = "M"
+            dayPicked = 2
             
         case tuesdayButton:
-            dayPicked = "Tu"
+            dayPicked = 3
             
         case wednesdayButton:
-            dayPicked = "W"
+            dayPicked = 4
             
         case thursdayButton:
-            dayPicked = "Th"
+            dayPicked = 5
             
         case fridayButton:
-            dayPicked = "F"
+            dayPicked = 6
             
         case saturdayButton:
-            dayPicked = "Sa"
-            
-        case sundayButton:
-            dayPicked = "Su"
+            dayPicked = 7
             
         default:
             break
@@ -105,10 +114,10 @@ class SecondViewController: UIViewController
         }
         
         // Toggle the day that was pressed in our data, fase to true, true to false.
-        days[dayPicked] = !days[dayPicked]!
+        weekDays[dayPicked] = !weekDays[dayPicked]!
         
         // Set appropriate color for the button. Keep enabled so user can unpick if needed.
-        if days[dayPicked]!
+        if weekDays[dayPicked]!
         {
             sender.setTitleColor(dayButtonEnabledColor, for: .normal)
         } else {
@@ -154,8 +163,20 @@ class SecondViewController: UIViewController
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the goal the user picked from the previous View Controller.
-        //goal = (sender as! ViewController).goal
+        
+        if let nextView: NudgesViewController = segue.destination as? NudgesViewController
+        {
+            nextView.goal = goal
+            
+            // Populate daysOfTheWeek with just the days the user picked
+            for (day, isEnabled) in weekDays
+            {
+                if isEnabled
+                {
+                    nextView.daysOfTheWeek.append(day)
+                }
+            }
+        }
     }
 
 }

@@ -37,15 +37,15 @@ class IntroViewController: UIViewController {
                 {
                     // Note that the user gave permission
                     self.didGivePermissions = true
-                    
-                    // Enable the "Let's get started!" button
-                    self.startButton.isEnabled = true
                 }
             }
         if didGivePermissions
         {
             // Disable the "Enable Permissions" button
             self.permissionsButton.isEnabled = false
+            
+            // Enable the "Let's get started!" button
+            self.startButton.isEnabled = true
         }
     }
 
