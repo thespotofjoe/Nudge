@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRD-LB-9GS">
-                                <rect key="frame" x="68" y="471" width="0.0" height="134"/>
+                                <rect key="frame" x="67.5" y="179" width="240" height="134"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="134" id="X1L-aH-5mu"/>
                                     <constraint firstAttribute="width" constant="240" id="ksB-KN-Udg"/>
@@ -362,9 +362,10 @@
             <objects>
                 <viewController id="eI2-Ww-o3t" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6lG-PK-P8f">
-                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="134"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="3z3-tC-dRK"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCv-xo-go8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -373,6 +374,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hand.point.right.fill" catalog="system" width="32" height="32"/>
+        <image name="hand.point.right.fill" catalog="system" width="64" height="48"/>
     </resources>
 </document>

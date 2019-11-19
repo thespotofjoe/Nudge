@@ -84,7 +84,7 @@ class SecondViewController: UIViewController
     @IBAction func dayWasToggled(_ sender: UIButton)
     {
         // Convert the button toggled into an Int we can use with our days dictionary.
-        var dayPicked: Int
+        var dayPicked = 0
         switch sender
         {
         case sundayButton:
