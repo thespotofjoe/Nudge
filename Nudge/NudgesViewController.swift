@@ -9,7 +9,14 @@
 import UIKit
 import UserNotifications
 
-class NudgesViewController: UIViewController, UITableViewDataSource {
+struct Nudge {
+    var date:   DateComponents
+    var requests:   [UNNotificationRequest]
+    var completed:  Bool
+}
+
+class NudgesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+{
     
     // Properties
     // An array to hold the steps taken each week
@@ -21,14 +28,83 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
     // An array to hold which times to nudge the user
     let hours = [9, 13, 17]
     
+    // A counter of how many nudges per day we're adding
+    var nudgesPerDay = 3
+    
     // A variable to hold the user's end goal
     var goal: Int = 0
     
     // An array with the notification objects to hold every single Nudge
-    var nudges: [UNNotificationRequest] = []
+    var nudges: [Nudge] = []
     
+    // Variables to hold the user's current Calendar and TimeZone objects
     let calendar = Calendar.current
     let timezone = TimeZone.current
+    
+    // UITableViewDelegate Methods
+    // If the user swipes in on the right side of the cell, mark all the nudges for that day as completed
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let completeAction = UIContextualAction(style: .normal, title: "Complete")
+        { (_: UIContextualAction, _ UIView, actionPerformed:(Bool) -> Void) in
+            // Set this Nudge to completed
+            self.nudges[indexPath.row].completed = true
+        
+            // Update the table
+            tableView.reloadData()
+        
+            // Return true to indicate everything went as planned muahaha
+            actionPerformed(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [completeAction])
+    }
+    
+    // UITableViewDataSource Methods
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return checkSum()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nudgeCell", for: indexPath)
+        let nudgeTrigger = nudges[indexPath.row].requests[0].trigger as! UNCalendarNotificationTrigger
+        
+        let nudgeDateTimeComponents = nudgeTrigger.dateComponents
+        let nudgeDateTime = nudgeDateTimeComponents.date!
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        let dateString = dateFormatter.string(from: nudgeDateTime)
+        
+        // Set the cell's label's weekday
+        var weekday = ""
+        switch nudgeDateTimeComponents.weekday
+        {
+        case 1:
+            weekday = "Sunday"
+        case 2:
+            weekday = "Monday"
+        case 3:
+            weekday = "Tuesday"
+        case 4:
+            weekday = "Wednesday"
+        case 5:
+            weekday = "Thursday"
+        case 6:
+            weekday = "Friday"
+        case 7:
+            weekday = "Saturday"
+
+        default:
+            break
+        }
+        
+        cell.textLabel?.text = "\(weekday), \(dateString)"
+        return cell
+    }
     
     // A function that checks the sum of all the weeks so we can correct for rounding differences
     func checkSum() -> Int
@@ -63,58 +139,11 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
         }
         
         // Due to int rounding errors, expand the weeks as necessary
-        var errorInRounding = numWeeks - steps.count
+        let errorInRounding = numWeeks - steps.count
         for _ in 0..<errorInRounding
         {
             steps.insert(1, at: 0)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        return checkSum()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "Nudge", for: indexPath)
-        let cell = UITableViewCell()
-        
-        let nudgeTrigger = nudges[indexPath.row*3].trigger as! UNCalendarNotificationTrigger
-        
-        let nudgeDateTimeComponents = nudgeTrigger.dateComponents
-        let nudgeDateTime = nudgeDateTimeComponents.date!
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
-        let dateString = dateFormatter.string(from: nudgeDateTime)
-        
-        // Set the cell's label's weekday
-        var weekday = ""
-        switch nudgeDateTimeComponents.weekday
-        {
-        case 1:
-            weekday = "Sunday"
-        case 2:
-            weekday = "Monday"
-        case 3:
-            weekday = "Tuesday"
-        case 4:
-            weekday = "Wednesday"
-        case 5:
-            weekday = "Thursday"
-        case 6:
-            weekday = "Friday"
-        case 7:
-            weekday = "Saturday"
-
-        default:
-            break
-        }
-        
-        cell.textLabel?.text = "\(weekday), \(dateString)"
-        return cell
     }
     
     // Populate days with Date objects for each day
@@ -152,30 +181,40 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
                 content.title = NSString.localizedUserNotificationString(forKey: "Nudge nudge... Have you done your workout yet?", arguments: nil)
                 content.body = NSString.localizedUserNotificationString(forKey: "Build your athletic self! Mark it as completed now.", arguments: nil)
                 
+                // Initialize variable to hold the date of the next Nudge
+                var nextNudgeDate = DateComponents()
+                
+                // Set calendar and timezone to user's
+                nextNudgeDate.calendar = self.calendar
+                nextNudgeDate.timeZone = self.timezone
+                
+                // Add the appropriate date and time components to the variable
+                nextNudgeDate.year = nextWeeksYear
+                nextNudgeDate.weekOfYear = nextWeekOfTheYear
+                nextNudgeDate.weekday = daysOfTheWeek[step]
+                
+                // Create the nudge
+                var nudge = Nudge(date: nextNudgeDate, requests: [], completed: false)
+                
                 for hour in hours
                 {
-                    // Initialize variable to hold the date/time of the next Nudge
-                    var nextNudgeTime = DateComponents()
-                    
-                    // Set calendar and timezone to user's
-                    nextNudgeTime.calendar = self.calendar
-                    nextNudgeTime.timeZone = self.timezone
-                    
-                    // Add the appropriate date and time components to the variable
-                    nextNudgeTime.year = nextWeeksYear
-                    nextNudgeTime.weekOfYear = nextWeekOfTheYear
-                    nextNudgeTime.weekday = daysOfTheWeek[step]
-                    nextNudgeTime.hour = hour
+                    // Set the hour
+                    nextNudgeDate.hour = hour
                     
                     // Iterate whichNudge
                     whichNudge = whichNudge + 1
                    
-                    // Create and append the notification trigger
-                    // with the appropriate date to the array
-                    nudges.append(UNNotificationRequest(identifier: "Nudge \(whichNudge)",
-                        content: content,
-                        trigger: UNCalendarNotificationTrigger(dateMatching: nextNudgeTime, repeats: false)))
+                    // Create the UNNotificationRequest
+                    var request = UNNotificationRequest(identifier: "Nudge \(whichNudge)",
+                    content: content,
+                    trigger: UNCalendarNotificationTrigger(dateMatching: nextNudgeDate, repeats: false))
+                    
+                    // Append this request to the Nudge
+                    nudge.requests.append(request)
                 }
+                
+                // Append the Nudge to the array
+                nudges.append(nudge)
             }
             
             // Advance the next week by 1
@@ -186,6 +225,10 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        // Just in case we add/remove an hour in hours: [Int] without updating
+        // nudgesPerDay, this line of code will update it for us
+        nudgesPerDay = hours.count
         
         // Calculate the steps needed each week
         generateSteps(in: 3)
@@ -200,12 +243,17 @@ class NudgesViewController: UIViewController, UITableViewDataSource {
         {
             let center = UNUserNotificationCenter.current()
             
-            center.add(nudge) { (error : Error?) in
-                if let theError = error
-                {
-                    // If there's a no permissions error, display an alert to make the user give permissions
-                } else {
-                    print ("Added notification for \((nudge.trigger as! UNCalendarNotificationTrigger).dateComponents.date!) successfully")
+            // Add all the requests in the Nudge's array of requests
+            for index in 0 ..< nudgesPerDay
+            {
+                let thisRequest = nudge.requests[index]
+                center.add(thisRequest) { (error : Error?) in
+                    if let theError = error
+                    {
+                        // If there's a no permissions error, display an alert to make the user give permissions
+                    } else {
+                        print ("Added notification for \((thisRequest.trigger as! UNCalendarNotificationTrigger).dateComponents.date!) successfully")
+                    }
                 }
             }
         }
