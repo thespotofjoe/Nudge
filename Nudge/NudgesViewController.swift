@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import MessageUI
 
 struct Nudge {
     var date:   DateComponents
@@ -15,7 +16,7 @@ struct Nudge {
     var completed:  Bool
 }
 
-class NudgesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class NudgesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate
 {
     
     // Properties
@@ -40,24 +41,59 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
     // Variables to hold the user's current Calendar and TimeZone objects
     let calendar = Calendar.current
     let timezone = TimeZone.current
+    let today = Date()
+    
+    @IBAction func launchEmail(_ sender: Any)
+    {
+        let subject = "Nudge App Feedback"
+        let body = "Feature request or bug report?"
+        let to = ["joe@thespotofjoe.com"]
+        let mailComposer: MFMailComposeViewController = MFMailComposeViewController()
+        
+        mailComposer.mailComposeDelegate = self
+        mailComposer.setSubject(subject)
+        mailComposer.setMessageBody(body, isHTML: false)
+        mailComposer.setToRecipients(to)
+
+        self.present(mailComposer, animated: true, completion: nil)
+    }
+
+    func mailComposeController(_:MFMailComposeViewController, didFinishWith result:MFMailComposeResult, error:Error?) {
+
+        self.presentedViewController!.dismiss(animated: true, completion: nil)
+    }
     
     // UITableViewDelegate Methods
     // If the user swipes in on the right side of the cell, mark all the nudges for that day as completed
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let completeAction = UIContextualAction(style: .normal, title: "Complete")
-        { (_: UIContextualAction, _ UIView, actionPerformed:(Bool) -> Void) in
-            // Set this Nudge to completed
-            self.nudges[indexPath.row].completed = true
+        // Get the date for the nudge for this row
+        let nudgeTrigger = nudges[indexPath.row].requests[0].trigger as! UNCalendarNotificationTrigger
         
-            // Update the table
-            tableView.reloadData()
+        let nudgeDateTimeComponents = nudgeTrigger.dateComponents
+        let nudgeDateTime = nudgeDateTimeComponents.date!
         
-            // Return true to indicate everything went as planned muahaha
-            actionPerformed(true)
+        // If the nudge is in the past or present, it's active. Allow it to be toggled.
+        if !(today < nudgeDateTime)
+        {
+            let completeAction = UIContextualAction(style: .normal, title: "Complete")
+            { (_: UIContextualAction, _ UIView, actionPerformed:(Bool) -> Void) in
+                // Set this Nudge to completed
+                self.nudges[indexPath.row].completed = true
+            
+                // Update the table
+                tableView.reloadData()
+            
+                // Return true to indicate everything went as planned muahaha
+                actionPerformed(true)
+            }
+            
+            return UISwipeActionsConfiguration(actions: [completeAction])
         }
         
-        return UISwipeActionsConfiguration(actions: [completeAction])
+        // We got here which means the nudge is in the future.
+        // Don't allow the user to toggle it.
+        return nil
     }
     
     // UITableViewDataSource Methods
@@ -68,12 +104,28 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        // Declare the cell here since we'll give it a value in if/else blocks
+        var cell: UITableViewCell
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nudgeCell", for: indexPath)
+        // Get the date for the nudge for this row
         let nudgeTrigger = nudges[indexPath.row].requests[0].trigger as! UNCalendarNotificationTrigger
         
         let nudgeDateTimeComponents = nudgeTrigger.dateComponents
         let nudgeDateTime = nudgeDateTimeComponents.date!
+        
+        // If the nudge is in the past or present, use an "active" cell
+        if !(today < nudgeDateTime)
+        {
+            // If it's been completed, use an "activeNudgeCompleted" cell
+            if nudges[indexPath.row].completed
+            {
+                cell = tableView.dequeueReusableCell(withIdentifier: "activeNudgeCompleted", for: indexPath)
+            } else {    // Otherwise use an "activeNudgeUncompleted" cell
+                cell = tableView.dequeueReusableCell(withIdentifier: "activeNudgeUncompleted", for: indexPath)
+            }
+        } else {    // Nudge is in the future, use an "unactiveNudge" cell
+            cell = tableView.dequeueReusableCell(withIdentifier: "unactiveNudge", for: indexPath)
+        }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
@@ -205,7 +257,7 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
                     whichNudge = whichNudge + 1
                    
                     // Create the UNNotificationRequest
-                    var request = UNNotificationRequest(identifier: "Nudge \(whichNudge)",
+                    let request = UNNotificationRequest(identifier: "Nudge \(whichNudge)",
                     content: content,
                     trigger: UNCalendarNotificationTrigger(dateMatching: nextNudgeDate, repeats: false))
                     
@@ -221,7 +273,7 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
             nextWeekOfTheYear = nextWeekOfTheYear + 1
         }
     }
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -248,7 +300,7 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
             {
                 let thisRequest = nudge.requests[index]
                 center.add(thisRequest) { (error : Error?) in
-                    if let theError = error
+                    if error != nil
                     {
                         // If there's a no permissions error, display an alert to make the user give permissions
                     } else {

@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController
 {
     // Properties
-    var goal = 0
+    var goal = 1
     
     // Outlets
     @IBOutlet weak var number: UILabel!
