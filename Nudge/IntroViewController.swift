@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import CoreData
 
 class IntroViewController: UIViewController {
     // Properties
@@ -18,8 +19,41 @@ class IntroViewController: UIViewController {
     
     @IBOutlet weak var permissionsButton: UIButton!
     
+    func isThereSavedData() -> Bool? {
+      
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return false
+        }
+      
+        let managedContext = appDelegate.persistentContainer.viewContext
+      
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+    
+        do {
+            let users = try managedContext.fetch(fetchRequest)
+            if users.count > 0
+            {
+                print("The goal is \(users[0].value(forKey: "goal")).")
+                return true
+            }
+            
+            print("The user didn't save any data yet.")
+            return false
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            return false
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Check for saved data. If there is, fastforward to nudge view
+        if isThereSavedData()!
+        {
+            print("Switching to third view now.")
+            self.performSegue(withIdentifier: "loadDataSegue", sender: self)
+        }
 
         // Check for notification permissions
         let center = UNUserNotificationCenter.current()

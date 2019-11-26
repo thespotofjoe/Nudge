@@ -17,6 +17,7 @@
 		AC9BEC8E2373B38C00FC163E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC9BEC8D2373B38C00FC163E /* Assets.xcassets */; };
 		AC9BEC912373B38C00FC163E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC9BEC8F2373B38C00FC163E /* LaunchScreen.storyboard */; };
 		ACDCAE9F238999C50044D6D4 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDCAE9E238999C50044D6D4 /* FeedbackViewController.swift */; };
+		ACDCAEA2238B89630044D6D4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACDCAEA0238B89630044D6D4 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AC9BEC902373B38C00FC163E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC9BEC922373B38C00FC163E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACDCAE9E238999C50044D6D4 /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		ACDCAEA1238B89630044D6D4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				AC9BEC882373B38A00FC163E /* ViewController.swift */,
 				AC9BEC8A2373B38A00FC163E /* Main.storyboard */,
 				AC730D1D237DFB8F00E8A42F /* NudgesViewController.swift */,
+				ACDCAEA0238B89630044D6D4 /* Model.xcdatamodeld */,
 				ACDCAE9E238999C50044D6D4 /* FeedbackViewController.swift */,
 				AC11734E2379E7140058912C /* SecondViewController.swift */,
 				AC9BEC8D2373B38C00FC163E /* Assets.xcassets */,
@@ -153,6 +156,7 @@
 				AC730D1E237DFB8F00E8A42F /* NudgesViewController.swift in Sources */,
 				AC730D1C237CC84200E8A42F /* IntroViewController.swift in Sources */,
 				AC11734F2379E7140058912C /* SecondViewController.swift in Sources */,
+				ACDCAEA2238B89630044D6D4 /* Model.xcdatamodeld in Sources */,
 				ACDCAE9F238999C50044D6D4 /* FeedbackViewController.swift in Sources */,
 				AC9BEC892373B38A00FC163E /* ViewController.swift in Sources */,
 				AC9BEC852373B38A00FC163E /* AppDelegate.swift in Sources */,
@@ -354,6 +358,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ACDCAEA0238B89630044D6D4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ACDCAEA1238B89630044D6D4 /* Model.xcdatamodel */,
+			);
+			currentVersion = ACDCAEA1238B89630044D6D4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AC9BEC792373B38A00FC163E /* Project object */;
 }
