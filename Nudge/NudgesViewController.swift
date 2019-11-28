@@ -255,9 +255,15 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
             let thisWeekOfTheYear = calendar.component(.weekOfYear, from: date)
             let thisYear = calendar.component(.year, from: date)
             
-            // Set next week's year and week
-            var nextWeekOfTheYear = thisWeekOfTheYear + 1
-            var nextWeeksYear = thisYear
+            // Find first following Sunday
+            let nextWeekOfTheYear = thisWeekOfTheYear
+            let closestSundayComponents = DateComponents(calendar: calendar, timeZone: timezone, year: thisYear, weekday: 0, weekOfYear: nextWeekOfTheYear)
+            var closestSunday = closestSundayComponents.date!
+            
+            // Initialize DateComponents variable to hold necessary data
+            var nextNudgeDateComponents = DateComponents()
+            nextNudgeDateComponents.calendar = calendar
+            nextNudgeDateComponents.timeZone = timezone
             
             // Create an iterator for whichNudge we're creating
             var whichNudge = 0
@@ -265,49 +271,48 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
             // Iterate over the weeks
             for n in 1...12
             {
-                // If the next week is actually in the next year,
-                // alter the variables appropriately
-                if nextWeekOfTheYear > 52
-                {
-                    nextWeekOfTheYear = nextWeekOfTheYear % 52
-                    nextWeeksYear = nextWeeksYear + 1
-                }
-                
                 // Iterate over each step prescribed for that week
                 for step in 0..<steps[n-1]
                 {
+                    // Get this nudge date by advancing to the correct day of the week
+                    var nextNudgeDate = closestSunday.advanced(by: TimeInterval(86400*daysOfTheWeek[step]))
+                    
+                    // Debug
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MMMM dd, yyyy"
+                    let dateString = dateFormatter.string(from: nextNudgeDate)
+                    let sundayString = dateFormatter.string(from: closestSunday)
+                    
+                    print ("Closest Sunday: \(sundayString)")
+                    print ("Next Nudge: \(dateString)")
+                    
                     // Create content for a notification request
                     let content = UNMutableNotificationContent()
                     content.title = NSString.localizedUserNotificationString(forKey: "Nudge nudge... Have you done your workout yet?", arguments: nil)
                     content.body = NSString.localizedUserNotificationString(forKey: "Build your athletic self! Mark it as completed now.", arguments: nil)
                     
-                    // Initialize variable to hold the date of the next Nudge
-                    var nextNudgeDate = DateComponents()
-                    
-                    // Set calendar and timezone to user's
-                    nextNudgeDate.calendar = self.calendar
-                    nextNudgeDate.timeZone = self.timezone
-                    
                     // Add the appropriate date and time components to the variable
-                    nextNudgeDate.year = nextWeeksYear
-                    nextNudgeDate.weekOfYear = nextWeekOfTheYear
-                    nextNudgeDate.weekday = daysOfTheWeek[step]
+                    nextNudgeDateComponents.year = calendar.component(.year, from: nextNudgeDate)
+                    nextNudgeDateComponents.weekOfYear = calendar.component(.weekOfYear, from: nextNudgeDate)
+                    nextNudgeDateComponents.weekday = calendar.component(.weekday, from: nextNudgeDate)
                     
                     // Create the nudge
-                    let nudge = createNudge(completed: false, dayOfTheWeek: nextNudgeDate.weekday!, weekOfTheYear: nextNudgeDate.weekOfYear!, year: nextNudgeDate.year!)
+                    let nudge = createNudge(completed: false, dayOfTheWeek: nextNudgeDateComponents.weekday!, weekOfTheYear: nextNudgeDateComponents.weekOfYear!, year: nextNudgeDateComponents.year!)
                     
                     for hour in hours
                     {
                         // Set the hour
-                        nextNudgeDate.hour = hour
+                        nextNudgeDateComponents.hour = hour
                         
                         // Iterate whichNudge
                         whichNudge = whichNudge + 1
+                        
+                        print ("Converted Date: \(nextNudgeDateComponents.date)")
                        
                         // Create the UNNotificationRequest
                         let request = UNNotificationRequest(identifier: "Nudge \(whichNudge)",
                         content: content,
-                        trigger: UNCalendarNotificationTrigger(dateMatching: nextNudgeDate, repeats: false))
+                        trigger: UNCalendarNotificationTrigger(dateMatching: nextNudgeDateComponents, repeats: false))
                         
                         // Append this request to the Nudge
                         notificationRequests.append(request)
@@ -317,8 +322,10 @@ class NudgesViewController: UIViewController, UITableViewDataSource, UITableView
                     nudges.append(nudge!)
                 }
                 
-                // Advance the next week by 1
-                nextWeekOfTheYear = nextWeekOfTheYear + 1
+                // Advance closest Sunday
+                closestSunday = closestSunday.advanced(by: TimeInterval(86400*7))
+                
+                
             }
         } else { // If there are stored nudges, load them instead
             var whichNudge = 0
