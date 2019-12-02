@@ -168,14 +168,45 @@ class SecondViewController: UIViewController
         {
             nextView.goal = goal
             
-            // Populate daysOfTheWeek with just the days the user picked
-            for (day, isEnabled) in weekDays
+            // Populate daysOfTheWeek: [Int] with just the days the user picked, in order
+            if weekDays[1]!
+            {
+                nextView.daysOfTheWeek.append(1)
+            }
+            if weekDays[2]!
+            {
+                nextView.daysOfTheWeek.append(2)
+            }
+            if weekDays[3]!
+            {
+                nextView.daysOfTheWeek.append(3)
+            }
+            if weekDays[4]!
+            {
+                nextView.daysOfTheWeek.append(4)
+            }
+            if weekDays[5]!
+            {
+                nextView.daysOfTheWeek.append(5)
+            }
+            if weekDays[6]!
+            {
+                nextView.daysOfTheWeek.append(6)
+            }
+            if weekDays[7]!
+            {
+                nextView.daysOfTheWeek.append(7)
+            }
+            
+            // Old version didn't iterate in order since Swift Dictionaries are unordred,
+            // so the next View would have a non-ordered array with the days the user picked
+            /*for (day, isEnabled) in weekDays
             {
                 if isEnabled
                 {
                     nextView.daysOfTheWeek.append(day)
                 }
-            }
+            }*/
         }
     }
 
