@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wQP-Xw-KIg">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,11 +12,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Nudge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRD-LB-9GS">
-                                <rect key="frame" x="67.5" y="179" width="240" height="134"/>
+                                <rect key="frame" x="392" y="185" width="240" height="134"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="134" id="X1L-aH-5mu"/>
                                     <constraint firstAttribute="width" constant="240" id="ksB-KN-Udg"/>
@@ -26,19 +26,19 @@
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workouts/week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgW-C2-VKM">
-                                <rect key="frame" x="150.5" y="233" width="118" height="21"/>
+                                <rect key="frame" x="475" y="239" width="118" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal for 3 months from now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODN-vK-Qd0">
-                                <rect key="frame" x="74" y="153" width="227" height="21"/>
+                                <rect key="frame" x="398.5" y="159" width="227" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ulq-KM-VnP">
-                                <rect key="frame" x="230" y="262.5" width="37" height="36"/>
+                                <rect key="frame" x="554.5" y="269" width="37" height="35.833333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40.5" id="O6O-cb-lDq"/>
                                     <constraint firstAttribute="width" constant="37" id="ttk-ef-Id1"/>
@@ -51,13 +51,13 @@
                                 </connections>
                             </button>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" autorepeat="NO" value="1" minimumValue="1" maximumValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="kk3-RA-hMl">
-                                <rect key="frame" x="107" y="265" width="94" height="32"/>
+                                <rect key="frame" x="431.5" y="271" width="94" height="32"/>
                                 <connections>
                                     <action selector="valueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="uPj-Bu-Ist"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AjO-cF-AVO">
-                                <rect key="frame" x="110" y="182" width="32.5" height="86"/>
+                                <rect key="frame" x="434.5" y="188" width="32.5" height="86"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="72"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,49 +96,43 @@
             <objects>
                 <viewController id="uWw-D7-jUm" customClass="IntroViewController" customModule="Nudge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kes-VE-1KP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIc-2O-jLC">
-                                <rect key="frame" x="59" y="333" width="256" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIc-2O-jLC">
+                                <rect key="frame" x="384" y="342" width="256" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <state key="normal" title="Enable Permissions"/>
                                 <connections>
                                     <action selector="enableNotificationPermissions:" destination="uWw-D7-jUm" eventType="touchUpInside" id="xfM-Gk-qAZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nudge uses notifications to &quot;nudge&quot; you to upgrade your lifestyle." lineBreakMode="headTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAM-Oy-Tib">
-                                <rect key="frame" x="72" y="162" width="233" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nudge uses notifications to &quot;nudge&quot; you to upgrade your lifestyle." lineBreakMode="headTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAM-Oy-Tib">
+                                <rect key="frame" x="395.5" y="168" width="233" height="83"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="83" id="0hM-bb-Z0L"/>
+                                    <constraint firstAttribute="width" constant="233" id="yeM-zt-EM2"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Click &quot;Enable Permissions&quot; to allow Nudge to work its magic!" lineBreakMode="headTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D56-U2-fm1">
-                                <rect key="frame" x="72" y="243" width="227" height="90"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click &quot;Enable Permissions&quot; to allow Nudge to work its magic!" lineBreakMode="headTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D56-U2-fm1">
+                                <rect key="frame" x="395.5" y="244" width="233" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="233" id="RiQ-TC-llr"/>
+                                    <constraint firstAttribute="height" constant="90" id="kRZ-Uf-B46"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4H-Ln-Czu">
-                                <rect key="frame" x="118" y="118" width="140" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4H-Ln-Czu">
+                                <rect key="frame" x="442" y="124" width="140" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOH-DQ-ZxM">
-                                <rect key="frame" x="57" y="357" width="256" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="Let's Get Started!"/>
-                                <connections>
-                                    <action selector="enableNotificationPermissions:" destination="uWw-D7-jUm" eventType="touchUpInside" id="AwS-Eb-fTs"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="vz2-zc-gKE"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWc-Gt-hQK">
                                 <rect key="frame" x="173" y="542" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -146,8 +140,29 @@
                                     <segue destination="ggZ-St-jcw" kind="show" identifier="loadDataSegue" id="AjB-Cc-clb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOH-DQ-ZxM">
+                                <rect key="frame" x="384" y="366" width="256" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="Let's Get Started!"/>
+                                <connections>
+                                    <action selector="enableNotificationPermissions:" destination="uWw-D7-jUm" eventType="touchUpInside" id="AwS-Eb-fTs"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="vz2-zc-gKE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="G4H-Ln-Czu" firstAttribute="top" secondItem="VPs-XG-HIQ" secondAttribute="top" constant="74" id="4kr-lf-kOx"/>
+                            <constraint firstItem="zIc-2O-jLC" firstAttribute="centerX" secondItem="VPs-XG-HIQ" secondAttribute="centerX" id="51v-8J-HQg"/>
+                            <constraint firstItem="D56-U2-fm1" firstAttribute="centerX" secondItem="VPs-XG-HIQ" secondAttribute="centerX" id="73i-g2-QwX"/>
+                            <constraint firstItem="G4H-Ln-Czu" firstAttribute="centerX" secondItem="VPs-XG-HIQ" secondAttribute="centerX" id="IvI-cw-gTt"/>
+                            <constraint firstItem="zIc-2O-jLC" firstAttribute="top" secondItem="D56-U2-fm1" secondAttribute="bottom" constant="8" id="JDK-Oo-iXe"/>
+                            <constraint firstItem="xAM-Oy-Tib" firstAttribute="top" secondItem="G4H-Ln-Czu" secondAttribute="bottom" constant="8" id="NLz-re-ayj"/>
+                            <constraint firstItem="FOH-DQ-ZxM" firstAttribute="top" secondItem="zIc-2O-jLC" secondAttribute="bottom" constant="-7" id="bXE-r6-B4p"/>
+                            <constraint firstItem="xAM-Oy-Tib" firstAttribute="centerX" secondItem="VPs-XG-HIQ" secondAttribute="centerX" id="cSD-kz-VCy"/>
+                            <constraint firstItem="FOH-DQ-ZxM" firstAttribute="centerX" secondItem="VPs-XG-HIQ" secondAttribute="centerX" id="ffL-j6-U5x"/>
+                            <constraint firstItem="D56-U2-fm1" firstAttribute="top" secondItem="xAM-Oy-Tib" secondAttribute="bottom" constant="-7" id="iVg-ew-Ekz"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="VPs-XG-HIQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="S80-g0-Xuj"/>
@@ -158,79 +173,79 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qbU-t3-JsS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="383" y="130"/>
+            <point key="canvasLocation" x="381.60000000000002" y="129.98500749625188"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="bRx-JR-8cd">
             <objects>
                 <viewController id="jEq-6m-oax" customClass="SecondViewController" customModule="Nudge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ejI-uv-JJY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which days of the week?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJS-HJ-hKB">
-                                <rect key="frame" x="86" y="148" width="203" height="21"/>
+                                <rect key="frame" x="410.5" y="154" width="203" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jep-Pu-ty2">
-                                <rect key="frame" x="99.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="424" y="231" width="30" height="30"/>
                                 <state key="normal" title="Tu"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="LFs-Ao-Rdg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6F-NV-oaC">
-                                <rect key="frame" x="64.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="389" y="231" width="30" height="30"/>
                                 <state key="normal" title="M"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="v3M-cN-XSL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uh9-Az-gr2">
-                                <rect key="frame" x="172.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="497" y="231" width="30" height="30"/>
                                 <state key="normal" title="Th"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="UCB-X0-PeC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DyU-7S-OQM">
-                                <rect key="frame" x="137.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="462" y="231" width="30" height="30"/>
                                 <state key="normal" title="W"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="G68-nM-M11"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBC-u0-24X">
-                                <rect key="frame" x="210.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="535" y="231" width="30" height="30"/>
                                 <state key="normal" title="F"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="Zti-iW-N8M"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="163-pt-L8a">
-                                <rect key="frame" x="283.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="608" y="231" width="30" height="30"/>
                                 <state key="normal" title="Su"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="Wlg-hR-yLF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hs2-Fn-YMR">
-                                <rect key="frame" x="248.5" y="225" width="30" height="30"/>
+                                <rect key="frame" x="573" y="231" width="30" height="30"/>
                                 <state key="normal" title="Sa"/>
                                 <connections>
                                     <action selector="dayWasToggled:" destination="jEq-6m-oax" eventType="touchUpInside" id="Yus-rr-JFd"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick X more days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVL-gO-5Tu">
-                                <rect key="frame" x="121.5" y="177" width="132" height="21"/>
+                                <rect key="frame" x="446" y="183" width="132" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fjn-Zz-uw4">
-                                <rect key="frame" x="169" y="256.5" width="37" height="37"/>
+                                <rect key="frame" x="493.5" y="263" width="37" height="36.833333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="37" id="cEy-gU-xoO"/>
                                     <constraint firstAttribute="height" constant="41.5" id="cWI-lT-frO"/>
@@ -290,34 +305,34 @@
             <objects>
                 <viewController storyboardIdentifier="NudgesViewController" id="ggZ-St-jcw" customClass="NudgesViewController" customModule="Nudge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MnO-PY-vGr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nF0-RV-i9r">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="50" width="1024" height="1316"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="activeNudgeUncompleted" id="vbU-tQ-SVR">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="51.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vbU-tQ-SVR" id="Vcf-oM-3na">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="51.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="activeNudgeCompleted" id="aW9-FN-1ND">
-                                        <rect key="frame" x="0.0" y="71.5" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="79.5" width="1024" height="51.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aW9-FN-1ND" id="awe-1K-uBr">
-                                            <rect key="frame" x="0.0" y="0.0" width="336" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="985" height="51.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="unactiveNudge" id="fA3-5x-JwZ">
-                                        <rect key="frame" x="0.0" y="115" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="131" width="1024" height="51.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fA3-5x-JwZ" id="614-K3-FTC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="51.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -328,9 +343,11 @@
                                     <outlet property="delegate" destination="ggZ-St-jcw" id="4Ob-rO-ECe"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="khG-db-IyB">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khG-db-IyB">
+                                <rect key="frame" x="0.0" y="1322" width="1024" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="n1l-ia-3Xi"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem title="Feedback" id="gLa-Fd-5Ze">
                                         <connections>
@@ -342,9 +359,12 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="nF0-RV-i9r" firstAttribute="trailing" secondItem="khG-db-IyB" secondAttribute="trailing" id="50W-C6-OAH"/>
                             <constraint firstItem="nF0-RV-i9r" firstAttribute="bottom" secondItem="Scf-hN-u9E" secondAttribute="bottom" id="57e-R7-lY3"/>
+                            <constraint firstItem="Scf-hN-u9E" firstAttribute="bottom" secondItem="khG-db-IyB" secondAttribute="bottom" id="CtR-d1-FNY"/>
                             <constraint firstItem="nF0-RV-i9r" firstAttribute="leading" secondItem="Scf-hN-u9E" secondAttribute="leading" id="ENJ-RI-I1Y"/>
                             <constraint firstItem="nF0-RV-i9r" firstAttribute="top" secondItem="Scf-hN-u9E" secondAttribute="top" id="ZXc-WE-ct1"/>
+                            <constraint firstItem="khG-db-IyB" firstAttribute="width" secondItem="Scf-hN-u9E" secondAttribute="width" id="e4S-cQ-e36"/>
                             <constraint firstItem="nF0-RV-i9r" firstAttribute="trailing" secondItem="Scf-hN-u9E" secondAttribute="trailing" id="f6Q-6q-rCO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Scf-hN-u9E"/>
@@ -364,7 +384,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wQP-Xw-KIg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="61q-PL-FcH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
